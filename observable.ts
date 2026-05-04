@@ -34,7 +34,7 @@ export class Observable<T> {
    * @returns A subscription object that can be used to unsubscribe from the observable.
    */
   subscribe(observer: Observer<T>): Subscription {
-    const cleanup = this.executor(observer);
+    let cleanup = this.executor(observer);
 
     return {
       unsubscribe() {
@@ -43,6 +43,7 @@ export class Observable<T> {
         //   cleanup();
         // }
         cleanup?.();
+        cleanup = null;
       },
     };
   }
