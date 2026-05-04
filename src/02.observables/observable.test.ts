@@ -1,6 +1,6 @@
 // Example usage of Observable
 
-import { Observable } from './observable.js';
+import { Observable } from "./observable.js";
 
 // const observable = new Observable<number>((observer) => {
 //   console.log('Observable started');
@@ -69,29 +69,29 @@ import { Observable } from './observable.js';
 // });
 
 const timerObservable = new Observable<number>((observer) => {
-  console.log('Timer Observable started');
+  console.log("Timer Observable started");
   let count = 0;
   const intervalId = setInterval(() => {
     observer.next(count++);
-    console.log('generating value:', count);
+    console.log("generating value:", count);
   }, 1000);
   return () => clearInterval(intervalId); // Cleanup function to stop the interval when unsubscribed
 });
 
 const subscription = timerObservable.subscribe({
   next(value) {
-    console.log('Received value:', value);
+    console.log("Received value:", value);
   },
   error(err) {
-    console.error('Error:', err);
+    console.error("Error:", err);
   },
   complete() {
-    console.log('Timer Observable completed');
+    console.log("Timer Observable completed");
   },
 });
 
 setTimeout(() => {
-  console.log('Unsubscribed from timer observable');
+  console.log("Unsubscribed from timer observable");
   subscription.unsubscribe();
 }, 5000);
 

@@ -3,7 +3,7 @@ import { interval, timer } from "./creational-operators.js";
 const interval$ = interval(1000);   // Any observable is suffixed with $ after it
 
 const intervalSubscription = interval$.subscribe({
-  next(count) {
+  next(count: number) {
     console.log(count);
     if(count === 5) intervalSubscription.unsubscribe();
   }
