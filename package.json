@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "observable:usage": "node observable.usage.ts"
+    "observable:usage": "node observable.usage.ts",
+    "test:ts" : "npx tsc && node dist\\creational-operators.test.js"
   },
   "keywords": [],
   "author": "",
