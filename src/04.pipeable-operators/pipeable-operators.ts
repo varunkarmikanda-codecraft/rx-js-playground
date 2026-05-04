@@ -1,5 +1,5 @@
-import { of } from "./creational-operators.js";
-import { Observable } from "./observable.js";
+import { Observable } from "../02.observables/observable.js";
+import { of } from "../03.creational-operators/creational-operators.js";
 
 // An operator is a function that takes an observable and return an observable
 type Operator<T, U> = (input$: Observable<T>) => Observable<U>;
@@ -129,7 +129,7 @@ const filter = function <T>(predicate: (value: T) => boolean): Operator<T, T> {
     const output$ = new Observable((observer) => {
       const inputSubscription = input$.subscribe({
         next(value: T) {
-          if(predicate(value)) observer.next(value);
+          if (predicate(value)) observer.next(value);
         },
       });
       return () => inputSubscription.unsubscribe();
@@ -138,10 +138,14 @@ const filter = function <T>(predicate: (value: T) => boolean): Operator<T, T> {
   };
 };
 
-const greaterThanSix = filter<number>((value) => value > 6)
-const lessThanSeven = filter<number>((value) => value < 7)
-const structure = map<number, { value: number }>((value) => ({ value }))
-const sixSeven = of(5.1, 5.9, 8.4, 6.7, 7.3, 6.3, 5.8, 6.8, 6.5).pipe(greaterThanSix, lessThanSeven, structure);
+const greaterThanSix = filter<number>((value) => value > 6);
+const lessThanSeven = filter<number>((value) => value < 7);
+const structure = map<number, { value: number }>((value) => ({ value }));
+const sixSeven = of(5.1, 5.9, 8.4, 6.7, 7.3, 6.3, 5.8, 6.8, 6.5).pipe(
+  greaterThanSix,
+  lessThanSeven,
+  structure,
+);
 
 sixSeven.subscribe({
   next(value) {

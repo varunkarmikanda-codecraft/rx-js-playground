@@ -1,39 +1,39 @@
-import { Observable } from './observable.js';
+import { Observable, type Observer } from "../02.observables/observable.js";
 
 function of<T>(...values: T[]): Observable<T> {
   // Create an observable
   const observable = new Observable<T>((observer) => {
     // Produce value from the received value
-    for(const value of values) {
+    for (const value of values) {
       // tell the observer that the value is available
       observer.next(value);
     }
     // we are done producing values
     observer.complete?.();
     return null;
-  })
+  });
   return observable;
 }
 
 function from<T>(iterable: Iterable<T>): Observable<T> {
   const observable = new Observable<T>((observer) => {
-    for(const value of iterable) {
+    for (const value of iterable) {
       observer.next(value);
     }
     observer.complete?.();
     return null;
-  })
+  });
   return observable;
 }
 
 function range(start: number, count: number): Observable<number> {
   const observable = new Observable((observer) => {
-    for(let s = start; s <= count; s++) {
+    for (let s = start; s <= count; s++) {
       observer.next(s);
     }
     observer.complete?.();
     return null;
-  })
+  });
 
   // implicitly conveying that there is no cleanup function needed
 
@@ -49,8 +49,8 @@ function interval(milliseconds: number): Observable<number> {
     }, milliseconds);
 
     // now forced to return a proper cleanup or a cleanup is not needed
-    return () => clearInterval(interval)
-  })
+    return () => clearInterval(interval);
+  });
 
   return observable;
 }
@@ -63,8 +63,8 @@ function timer(dueTimeMilliseconds: number): Observable<number> {
     }, dueTimeMilliseconds);
 
     // now forced to return a proper cleanup or a cleanup is not needed
-    return () => clearTimeout(timeout)
-  })
+    return () => clearTimeout(timeout);
+  });
 
   return observable;
 }
