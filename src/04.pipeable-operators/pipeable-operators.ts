@@ -1,4 +1,4 @@
-import { Observable } from "../02.observables/observable.js";
+import { Observable } from "rxjs";
 import { of } from "../03.creational-operators/creational-operators.js";
 
 // An operator is a function that takes an observable and return an observable
@@ -12,7 +12,7 @@ const double: Operator<number, number> = (
   // and feed the output to the observer of the output observable
   // You get the reference to it in the executor function
 
-  const output$ = new Observable((observer) => {
+  const output$ = new Observable<number>((observer) => {
     const inputSubscription = input$.subscribe({
       next(value) {
         if (value !== undefined) {
@@ -32,7 +32,7 @@ const double: Operator<number, number> = (
 const square: Operator<number, number> = (
   input$: Observable<number>,
 ): Observable<number> => {
-  const output$ = new Observable((observer) => {
+  const output$ = new Observable<number>((observer) => {
     const inputSubscription = input$.subscribe({
       next(value) {
         if (value !== undefined) {
@@ -100,7 +100,7 @@ const map = function <T, U>(transform: (value: T) => U): Operator<T, U> {
   // And then applies the transform function on each value emitted by the input observable, and then emit the transformed value to the output observables observer
 
   return (input$: Observable<T>): Observable<U> => {
-    const output$ = new Observable((observer) => {
+    const output$ = new Observable<U>((observer) => {
       const inputSubscription = input$.subscribe({
         next(value) {
           if (value) observer.next(transform(value));
@@ -126,9 +126,9 @@ const structured = map<number, { value: number }>((value) => ({ value }));
 
 const filter = function <T>(predicate: (value: T) => boolean): Operator<T, T> {
   return (input$: Observable<T>): Observable<T> => {
-    const output$ = new Observable((observer) => {
+    const output$ = new Observable<T>((observer) => {
       const inputSubscription = input$.subscribe({
-        next(value: T) {
+        next(value) {
           if (predicate(value)) observer.next(value);
         },
       });

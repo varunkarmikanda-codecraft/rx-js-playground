@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "observable:usage": "node observable.usage.ts",
-    "test:sub" : "npx tsc && node dist\\subject.test.js",
-    "test:b-sub" : "npx tsc && node dist\\behaviour-subject.test.js",
-    "test:ts1" : "npx tsc && node dist\\pipeable-operators.js"
+    "test:sub": "npx tsc && node dist\\subject.test.js",
+    "test:b-sub": "npx tsc && node dist\\behaviour-subject.test.js",
+    "test:ts1": "npx tsc && node dist\\pipeable-operators.js",
+    "dev": "npx tsc --watch"
   },
   "keywords": [],
   "author": "",
@@ -15,5 +16,9 @@
   "type": "module",
   "devDependencies": {
     "typescript": "6.0.3"
+  },
+  "dependencies": {
+    "rxjs": "^7.8.2",
+    "xhr2": "^0.2.1"
   }
 }
